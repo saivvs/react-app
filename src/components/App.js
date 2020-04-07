@@ -7,8 +7,8 @@ import {FavouriteDesert} from './components/forms/desert.js';
 import {VisitedCities} from './components/forms/cities.js';
 import {YourState} from './components/forms/yourstate.js';
 import {Disable} from './components/forms/disable.js';
-import CountryDashboardApp from './components/Countries-Dashboard/CountriesDashboardApp.js';
-import CountryDetails from './components/Countries-Dashboard/CountryDetails.js';
+import CountryDashboardApp from './components/Countries-Dashboard/Countries-Dashboard-App.js';
+import CountryDetails from './components/Countries-Dashboard/newPage.js';
  import{
   BrowserRouter as Router,
   Switch,
@@ -16,8 +16,6 @@ import CountryDetails from './components/Countries-Dashboard/CountryDetails.js';
   Link
 } from "react-router-dom";
 import './App.css';
-import Projects from './components/Project.js';
-import EmojiGameApp from  './components/EmojisGameApp/EmojisGameApp.js';
 const mode={
         light: {
             id: '0',
@@ -40,7 +38,6 @@ class App extends React.Component{
   state={
     selectedTheme:mode.light,
   }
-  
   onChangeTheme=()=>{
         this.setState({
             selectedTheme:this.state.selectedTheme=== mode.light?mode.dark:mode.light,
@@ -49,7 +46,24 @@ class App extends React.Component{
     render(){
   return (
     <Router>
-
+      <div>
+        <nav>
+          <ul>
+          <h2>Projects</h2>
+          <li>
+          <Link to="/CarsList">CarsList</Link>
+          </li>
+          <li>
+          <Link to="/TodoList">TodoList</Link>
+          </li>
+          <li>
+          <Link to="/forms">Forms</Link>
+          </li>
+          <li>
+          <Link to="/CountryDashboardApp">CountryDashboardApp</Link>
+          </li>
+          </ul>
+        </nav>
         <Switch>
           <Route path="/CarsList">
             <CarsList />
@@ -78,17 +92,11 @@ class App extends React.Component{
           <Route path='/CountryDashboardApp'>
           <CountryDashboardApp onChangeTheme={this.onChangeTheme} selectedTheme={this.state.selectedTheme}/>
           </Route>
-          <Route path='/CountryDetails/:countryId'>
+          <Route path='/newPage/:countryId'>
           <CountryDetails onChangeTheme={this.onChangeTheme} selectedTheme={this.state.selectedTheme}/>
           </Route>
-          <Route path='/EmojiGameApp'>
-          <EmojiGameApp />
-          </Route>
-          <Route path="/">
-          <Projects/>
-          </Route>
         </Switch>
-    
+      </div>
     </Router>
   );
     }
