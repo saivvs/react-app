@@ -1,7 +1,8 @@
 import React from 'react';
-import {NavbarTag,NavbarSubTag,GameName,ScoreTag,TopScoreTag,ThemeChangeButton} from '../EmojisGameApp/styledComponent.js';
+import {NavbarTag,NavbarSubTag,GameName,ScoreTag,TopScoreTag,ThemeChangeButton} from './styledComponent.js';
 class Navbar extends React.Component{
     render(){
+        console.log(this.props);
         const{score,topScore,onChangeTheme,selectedTheme}=this.props;
         return(
             <NavbarTag selectedTheme={selectedTheme}>

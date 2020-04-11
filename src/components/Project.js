@@ -21,6 +21,18 @@ function Projects(){
           <li>
           <Link to='/EmojiGameApp'>EmojiGameApp</Link>
           </li>
+          <li>
+          <Link to='/CounterApp'>CounterApp</Link>
+          </li>
+          <li>
+          <Link to='/mobxTodolist'>mobxTodolist</Link>
+          </li>
+          <li>
+          <Link to='/NewTodoList'>NewTodoList</Link>
+          </li>
+          <li>
+          <Link to='/EventApp'>EventApp</Link>
+          </li>
           </ul>
         </nav>
         </div>);

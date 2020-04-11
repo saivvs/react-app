@@ -1,54 +1,41 @@
 import React from 'react';
 import './index.css';
+import {observable} from 'mobx';
+import { observer,Provider,inject } from "mobx-react";
 let duplicateListOfTodo =[];
 let lengthOfTodoList = 0;
+/*@observer
 class Todo extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            checked : this.props.checked,
-            disable: false,
-            todoClassName: 'notDisable',
-        };
-    }
-    todoCheckedOrNot = (event) => {
-        console.log(this.state.checked);
-        if(this.state.checked === false){
-            console.log('hi');
-        this.setState({
-            checked: true,
-            disable: true,
-            todoClassName: 'disable',
-        });
+    @observable checked = this.props.checked
+    @observable disable = false
+    @observable todoClassName = 'notDisable'
+     todoCheckedOrNot = (event) => {
+        if(this.checked === false){
+        this.checked= true,
+        this.disable= true,
+        this.todoClassName= 'disable';
         }
         else{
-        this.setState({
-            checked: false,
-            disable: false,
-            todoClassName: 'notDisable',
-        });
+        this.checked= false,
+        this.disable= false,
+        this.todoClassName= 'notDisable';
         }
-        console.log(event.target.checked);
         this.props.updatingCheckBox(event.target.checked,this.props.id);
     }
     render(){
         return(
             <div className='todo'>
             <input type='checkbox' className='todo-list-checkbox' onClick={this.todoCheckedOrNot}></input>
-            <input type='text' className={this.state.todoClassName} placeholder='enter todo' disabled={this.state.disable} defaultValue={this.props.value}></input>
-            <button className='todo-delete'  id={this.props.id} onClick={this.props.onRemove}>❌</button>
+            <input type='text' className={this.todoClassName} placeholder='enter todo' disabled={this.disable} defaultValue={this.props.value}></input>
+            <button className='todo-delete' id={this.props.id} onClick={this.props.onRemove}>X</button>
             </div>
             );
     }
 }
+@observer
 class Footer extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-          activeTodos: 0,
-        };
-    }
-    filterButton = (filterType) =>{
+    @observable activeTodos = 0
+     filterButton = (filterType) =>{
         {this.props.displayFooterFunction(filterType)}
     }
     render(){
@@ -82,17 +69,14 @@ class Footer extends React.Component{
     }
     }
 }
+
+@observer
 class TodoList extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-           listOfTodos : [],
-           footer : false,
-        };
-    }
-    addTodoToTodoList = (event) =>{
+    @observable listOfTodos = null
+    @observable footer = false
+     addTodoToTodoList = (event) =>{
         let enterTodo = event.target.value;
-        if(event.keyCode === 13){       
+        if(event.keyCode === 13){
         if(enterTodo.match("[a-zA-Z0-9]+")!==null){
           let lengthOfDuplicateList = duplicateListOfTodo.length;
            if(lengthOfDuplicateList === 0){
@@ -100,7 +84,7 @@ class TodoList extends React.Component{
                   id:1,
                   value:enterTodo,
                   checked:false,
-            });
+                });
          }
          else{
             let lastTodoId = duplicateListOfTodo[lengthOfDuplicateList-1].id;
@@ -108,89 +92,132 @@ class TodoList extends React.Component{
                  id:lastTodoId+1,
                  value:enterTodo,
                  checked:false,
-            });
+                });
         }
-    this.setState({
-        listOfTodos:duplicateListOfTodo,
-    });
-    event.target.value = "";
-}
-else{
-     alert('Enter Some Text');
-}
+            this.listOfTodos=duplicateListOfTodo;
+            event.target.value = "";
+        }
+        else{
+            alert('Enter Some Text');
+            }
             }
     }
-    checkboxUpdating = (expression,id) =>{
+     checkboxUpdating = (expression,id) =>{
         let updateCheckBox = duplicateListOfTodo.map(items =>{
             if(items.id === id){
                 items.checked = expression;
             }
         });
-        this.setState({
-            duplicateListOfTodo:updateCheckBox,
-        })
-        console.log(duplicateListOfTodo);
-    }
-
-    renderTodoList = () =>{
+        this.duplicateListOfTodo=updateCheckBox;
+        }
+     renderTodoList = () =>{
             let formTodo = this.state.listOfTodos.map(item=><Todo updatingCheckBox={this.checkboxUpdating}key={item.id} id={item.id} value={item.value} checked={item.checked} onRemove={this.removeTodoFromTodoList}/>);
             return formTodo;
     }
-    removeTodoFromTodoList = (event) => {
-      let remainingTodos = this.state.listOfTodos.filter((items)=>items.id!=parseInt(event.target.id));
+     removeTodoFromTodoList = (event) => {
+      let remainingTodos = this.listOfTodos.filter((items)=>items.id!=parseInt(event.target.id));
       duplicateListOfTodo = remainingTodos;
-      this.setState({
-            listOfTodos:remainingTodos,
-        });
+      this.listOfTodos=remainingTodos;
     }
-    displayFooter = (type) =>{
+     displayFooter = (type) =>{
         switch(type){
-            case "All":
-                this.setState({
-                    listOfTodos: duplicateListOfTodo
-                });
-                break;
-            case "active":
+            case "All":{
+                this.listOfTodos= duplicateListOfTodo;
+                break;}
+            case "active":{
                 let ActiveItems = duplicateListOfTodo.filter(items =>{
                     return items.checked === false;
                 });
-                this.setState({
-                    listOfTodos: ActiveItems
-                });
+                this.listOfTodos= ActiveItems;
                 console.log(this.state.listOfTodos);
                 console.log(duplicateListOfTodo);
-                break;
-            case "completed":
+                break;}
+            case "completed":{
                 let CompletedItems = duplicateListOfTodo.filter(items =>{
                     return items.checked === true;
                 });
-                this.setState({
-                    listOfTodos: CompletedItems
-                });
+                this.listOfTodos= CompletedItems;
                 console.log(this.state.listOfTodos);
                 console.log(duplicateListOfTodo);
                 break;
-            case "clearCompleted":
+            }
+            case "clearCompleted":{
                 let clearCompleted = duplicateListOfTodo.filter(items => {
                     return items.checked === false;
                 });
                 duplicateListOfTodo = clearCompleted;
-                this.setState({
-                    listOfTodos:clearCompleted,
-                });
+                this.listOfTodos=clearCompleted;
                 break;
+            }
         }
-    }
+     }
     render(){
         return(
             <div className='todo-heading'>
             <span>todos</span>
             <input type='text'  onKeyDown={this.addTodoToTodoList} className="create-todo-input-tag" placeholder='What needs to be done?'></input>
             <div> {this.renderTodoList()}</div>
-            
             <div><Footer displayFooterFunction={this.displayFooter} todosCount={lengthOfTodoList}/></div>
             </div>
         );
     }
+    
+    }*/
+@observer
+class A extends React.Component{
+    
+   
+    render(){
+        return(
+            <div>
+            <Provider temp='hello'>
+                <B/>
+                </Provider>
+            </div>
+            );
+    }
 }
-export{TodoList};
+
+@inject ('temp')
+@observer
+class B extends React.Component{
+    @observable name
+    onChange=(event)=>{
+        this.name=event.target.value;
+    }
+    render(){
+        const {temp} = this.props;
+        return(
+            <div>
+                <input type='text' style={{background: 'green'}} onChange={this.onChange}/>
+                <C name={this.name}/>
+            </div>
+            );
+    }
+}
+@inject ('temp')
+class C extends React.Component{
+    render(){
+        const {temp,name} = this.props
+         console.log("C",temp,name);
+        return(
+            <div>
+                <D/>
+            </div>
+            );
+    }
+}
+@inject ('temp')
+class D extends React.Component{
+    render(){
+        const {temp} = this.props
+        console.log("D",temp);
+        return(
+            <div >
+                {temp}
+            </div>
+            );
+    }
+}
+
+export default A;

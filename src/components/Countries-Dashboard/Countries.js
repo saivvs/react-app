@@ -25,8 +25,12 @@ class Countries extends React.Component{
         return countriesEl;
     }
     render(){
+        const { selectedTheme } = this.props;
+        
+        console.log("Countries SelectedTheme:", selectedTheme);
+        
         return(
-            <div className='countries-list' style={this.props.selectedTheme.style}>
+            <div className='countries-list' style={selectedTheme.style}>
             {this.showFilteredCountries()}
             </div>
             );

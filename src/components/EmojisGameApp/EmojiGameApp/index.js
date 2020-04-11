@@ -1,9 +1,9 @@
 import React from 'react';
-import Navbar from '../EmojisGameApp/Navbar.js';
-import EmojiCard from '../EmojisGameApp/EmojiCard.js';
-import HowToPlay from '../EmojisGameApp/HowToplay.js';
-import {EmojisCards} from '../EmojisGameApp/styledComponent.js';
-import WinOrLose from '../EmojisGameApp/WinOrLose.js';
+import Navbar from '../Navbar/index.js';
+import EmojiCard from '../EmojiCard/index.js';
+import HowToPlay from '../HowToPlay/index.js';
+import {EmojisCards,EmojiGameAppTag} from './styledComponent.js';
+import WinOrLose from '../WinOrLose/index.js';
 class EmojiGameApp extends React.Component{
     state={
         score:0,
@@ -184,14 +184,13 @@ class EmojiGameApp extends React.Component{
         return this.state.emojis.map(emoji=> <EmojiCard key={emoji.name} emoji={emoji} onEmojiClick={this.onEmojiClick} selectedTheme={this.state.selectedTheme}/>);
     }
     render(){
-        console.log(this.state.emojis);
         if(this.state.gameState==='playing'&& this.state.score<12){
                 return(
-            <div>
+            <EmojiGameAppTag>
             <Navbar onChangeTheme={this.onChangeTheme} selectedTheme={this.state.selectedTheme} score={this.state.score} topScore={this.state.topScore}/>
             <EmojisCards selectedTheme={this.state.selectedTheme}>{this.renderEmojis()}</EmojisCards>
             <HowToPlay selectedTheme={this.state.selectedTheme}/>
-            </div>
+            </EmojiGameAppTag>
             );
         }
         else{

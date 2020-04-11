@@ -17,40 +17,39 @@ import CountryDetails from './components/Countries-Dashboard/CountryDetails.js';
 } from "react-router-dom";
 import './App.css';
 import Projects from './components/Project.js';
-import EmojiGameApp from  './components/EmojisGameApp/EmojisGameApp.js';
-const mode={
-        light: {
-            id: '0',
-            name: '#fff',
-            style: {
-                backgroundColor: '#fff',
-                color: 'black'
-            }
-        },
-        dark: {
-            id: '1',
-            name: '#2b3945',
-            style: {
-                backgroundColor: '#2b3945',
-                color: 'white'
-            }
-        }
-    };
+import EmojiGameApp from  './components/EmojisGameApp/EmojiGameApp/index.js';
+import A from  './components/mobxTodolist/TodolistApp.js';
+import CounterApp from './components/CounterApp/CounterApp.js';
+import CounterPage from './components/CounterPage/index.js';
+import {observer} from 'mobx-react';
+import { configure } from 'mobx';
+import themeStore from './stores/stores/index.js';
+import TodoApp from './NewTodoList/TodoApp/index.js';
+import EventApp from './components/EventApp/EventApp/index.js';
+configure ({ enforecActions: true});
+@observer
 class App extends React.Component{
-  state={
-    selectedTheme:mode.light,
-  }
   
+  getCurrentTheme = () =>{
+    let temp = themeStore.selectedTheme;
+    return temp;
+  }
+  setCurrentTheme = () =>{
+    themeStore.updateTheme();
+    //this.selectedTheme = theme;
+  }
   onChangeTheme=()=>{
-        this.setState({
-            selectedTheme:this.state.selectedTheme=== mode.light?mode.dark:mode.light,
-        });
+        
+    this.setCurrentTheme()
     }
     render(){
   return (
     <Router>
 
         <Switch>
+          <Route path="/counter-page">
+            <CounterPage />
+          </Route>
           <Route path="/CarsList">
             <CarsList />
           </Route>
@@ -76,14 +75,26 @@ class App extends React.Component{
           <Disable />
           </Route>
           <Route path='/CountryDashboardApp'>
-          <CountryDashboardApp onChangeTheme={this.onChangeTheme} selectedTheme={this.state.selectedTheme}/>
+          <CountryDashboardApp onChangeTheme={this.onChangeTheme} selectedTheme={this.getCurrentTheme()}/>
           </Route>
           <Route path='/CountryDetails/:countryId'>
-          <CountryDetails onChangeTheme={this.onChangeTheme} selectedTheme={this.state.selectedTheme}/>
+          <CountryDetails onChangeTheme={this.onChangeTheme} selectedTheme={this.getCurrentTheme()}/>
           </Route>
           <Route path='/EmojiGameApp'>
           <EmojiGameApp />
           </Route>
+          <Route path='/CounterApp'>
+          <CounterApp />
+          </Route>
+          <Router path='/mobxTodoList'>
+          <A/>
+          </Router>
+          <Router path='/NewTodoList'>
+          <TodoApp/>
+          </Router>
+          <Router path='/EventApp'>
+          <EventApp/>
+          </Router>
           <Route path="/">
           <Projects/>
           </Route>

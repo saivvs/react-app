@@ -1,5 +1,5 @@
 import React from 'react';
-import {Footer,FooterDescrption,FooterHeading} from '../EmojisGameApp/styledComponent.js';
+import {Footer,FooterDescrption,FooterHeading} from './styledComponent.js';
 class HowToPlay extends React.Component{
     render(){
         const {selectedTheme}=this.props
