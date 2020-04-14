@@ -1,7 +1,10 @@
 import React from 'react';
 import { observer } from "mobx-react";
-import Todo from '../Todo/index.js';
-import eventStore from '../../stores/TodoStores/index.js';
+
+import eventStore from '../../stores/TodoStores/index';
+
+import Todo from '../Todo/index.';
+
 @observer
 class EventList extends React.Component{
     render(){

@@ -1,6 +1,11 @@
 import React from 'react';
 import {IoIosSearch} from 'react-icons/io';
-class SearchCountry extends React.Component{
+
+type selectedThemeProps={
+    selectedTheme:any
+}
+
+class SearchCountry extends React.Component<selectedThemeProps>{
     handleSubmit=(e)=>{
         if(e.keyCode === 13){
             this.props.onChangeSearchCountry(e);

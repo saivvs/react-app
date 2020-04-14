@@ -1,8 +1,10 @@
 /*global fetch*/
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import {Header} from './Header.js';
 import {IoIosArrowRoundBack} from 'react-icons/io';
+
+import {Header} from './Header';
+
 class CountryDetails extends React.Component{
     state={
         filteredCountryDetails:[],
@@ -36,10 +38,10 @@ class CountryDetails extends React.Component{
     }
     render(){
         if(this.state.filteredCountryDetails.length>0){
-            const {selectedTheme,onChangeTheme} = this.props;
+            const {selectedTheme} = this.props;
         return(
          <div className='country-details-page' style={selectedTheme.style}> 
-            <Header selectedTheme={selectedTheme} onChangeTheme={onChangeTheme}/>
+            <Header selectedTheme={selectedTheme} />
             <div>
             <button onClick={this.goBack} style={selectedTheme.style} className='newpage-back-button'><strong><IoIosArrowRoundBack/></strong>Back</button>
             </div>
@@ -72,7 +74,6 @@ class CountryDetails extends React.Component{
                         <strong>Border Countries</strong> : {
                         this.state.filteredCountryDetails[0].borders.map(countryAlphaCode=>{
                         const countryObj = this.state.countryDetails.filter(countryname=>countryname.alpha3Code===countryAlphaCode);
-                            console.log(countryObj,'obj');
                             return (<button className='newpage-button' style={selectedTheme.style} onClick={this.getCountryDetails} id={countryAlphaCode} key={countryAlphaCode}>{countryObj[0].name}</button>);
                         })}
                     </div>

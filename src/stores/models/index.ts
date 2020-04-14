@@ -1,7 +1,7 @@
 import React from 'react';
 import {observable} from 'mobx';
 import { observer } from "mobx-react";
-import TodoStores from '../TodoStore/index.js';
+import TodoStores from '../TodoStores/index';
 @observer
 class Todo extends React.Component{
     @observable id = TodoStores.todos.length+1

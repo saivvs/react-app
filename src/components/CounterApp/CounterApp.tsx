@@ -1,7 +1,8 @@
 import React from 'react';
 import {observable} from 'mobx';
 import { observer } from "mobx-react";
-import {CounterAppTag,CounterAppSubTag1,CounterAppSubTag2,IncrementButton,DecrementButton,Count,Button} from './styledComponents.js';
+
+import {CounterAppTag,CounterAppSubTag1,CounterAppSubTag2,IncrementButton,DecrementButton,Count,Button} from './styledComponents';
 @observer
 class CounterApp extends React.Component{
     @observable count = 0

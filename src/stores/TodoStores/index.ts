@@ -1,6 +1,6 @@
-import {observable,action,reaction,computed} from 'mobx';
+import {observable,action,computed} from 'mobx';
 
-import MobxTodoModel from '../models/TodoModel/index.js';
+import MobxTodoModel from '../models/TodoModel/index';
 
 class TodoStores {
     @observable todos=[];
@@ -13,10 +13,10 @@ class TodoStores {
     }
     @action.bound
     onRemoveTodo(todo){
-        console.log('remove',todo);
-        console.log(this.todos);
+        //console.log('remove',todo);
+        //console.log(this.todos);
         let remainingTodos=this.todos.filter((eachtodo)=>eachtodo.todoId !== todo);
-        console.log('remaining',remainingTodos);
+        //console.log('remaining',remainingTodos);
         this.todos=remainingTodos;
     }
     @action.bound

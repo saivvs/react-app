@@ -1,7 +1,12 @@
 import React from 'react';
-import {SearchCountry} from './SearchCountry.js';
-import {SelectRegion} from './SelectRegion.js';
-class CountriesFilterBar extends React.Component{
+import {SearchCountry} from './SearchCountry';
+import {SelectRegion} from './SelectRegion';
+
+type selectedThemeProps={
+    selectedTheme:any
+}
+
+class CountriesFilterBar extends React.Component<selectedThemeProps>{
     render(){
         return(
         <div className="filters" style={this.props.selectedTheme.style}>

@@ -2,6 +2,7 @@ import {observable,action} from 'mobx';
 
 class MobxTodoModel{
     @observable todoTitle
+    @observable todoId
     @observable isChecked
     constructor(userInput){
         this.todoId = Math.floor(Math.random()*10000);

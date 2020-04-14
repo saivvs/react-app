@@ -1,6 +1,6 @@
 import React from 'react';
-import {SearchText} from './SearchText.js';
-import {SelectRegion} from './SelectRegion.js';
+import {SearchText} from './SearchText';
+import {SelectRegion} from './SelectRegion';
 class Filter extends React.Component{
     render(){
         return(

@@ -1,11 +1,10 @@
 import React from 'react';
-import {observable,action,reaction} from 'mobx';
+
 import { observer } from "mobx-react";
-import {TodoAppTag} from './styledComponent.js';
-import todoAppStore from '../../stores/TodoStores/index.js';
-import AddTodo from '../AddTodo/index.js';
-import TodoList from '../TodoList/index.js';
-import {FooterTag,TodosCount,FilterButtons,AllButton,ActiveButton,CompletedButton,ClearCompletedButtonTag,ClearCompletedButton} from './styledComponent.js';
+
+import todoAppStore from '../../../../stores/TodoStores/index';
+
+import {FooterTag,TodosCount,FilterButtons,AllButton,ActiveButton,CompletedButton,ClearCompletedButtonTag,ClearCompletedButton} from './styledComponent';
 
 @observer
 class Footer extends React.Component{

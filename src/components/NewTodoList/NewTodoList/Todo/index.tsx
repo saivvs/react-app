@@ -1,11 +1,15 @@
 import React from 'react';
-import {action} from 'mobx';
 import { observer } from "mobx-react";
-import {TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComponent.js';
-import todoAppStore from '../../stores/TodoStores/index.js';
-import MobxTodoModel from '../../stores/models/TodoModel/index.js';
+
+import todoAppStore from '../../../../stores/TodoStores/index';
+
+import {TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComponent';
+
+type TodoProps={
+    eachToDo:any
+}
 @observer
-class Todo extends  React.Component{
+class Todo extends  React.Component<TodoProps>{
     
     onCompltedTodo=()=>{
         const {eachToDo}=this.props;

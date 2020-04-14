@@ -1,8 +1,11 @@
 import React from 'react';
 import {observable,action} from 'mobx';
 import { observer } from "mobx-react";
-import {AddTodoTag,TodoHeading,TodoEnter} from './styledComponent.js';
-import todoAppStore from '../../stores/TodoStores/index.js';
+
+import todoAppStore from '../../../../stores/TodoStores/index';
+
+import {AddTodoTag,TodoHeading,TodoEnter} from './styledComponent';
+
 
 @observer
 class AddTodo extends React.Component{
@@ -13,7 +16,7 @@ class AddTodo extends React.Component{
         todoAppStore.onTodo(this.todoTitle);
     }
     @action.bound
-    onChangeInput(e){
+    onChangeInput(e:any){
         this.todoTitle = e.target.value;
         if(e.keyCode===13){
             this.onAddTodo();

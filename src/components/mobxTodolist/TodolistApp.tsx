@@ -1,10 +1,11 @@
 import React from 'react';
-import './index.css';
 import {observable} from 'mobx';
-import { observer,Provider,inject } from "mobx-react";
+import { observer } from "mobx-react";
+
+import './index.css';
 let duplicateListOfTodo =[];
 let lengthOfTodoList = 0;
-/*@observer
+@observer
 class Todo extends React.Component{
     @observable checked = this.props.checked
     @observable disable = false
@@ -47,19 +48,19 @@ class Footer extends React.Component{
         });
         if(duplicateListOfTodo.length >0){
         return(
-             <div class="footer" id='footer'>
+             <div className="footer" id='footer'>
         <div>
-          <div class="task-count" id='todoPresences'>
+          <div className="task-count" id='todoPresences'>
           {activeItemsLeft} items left
           </div>
         </div>
         <div>
-          <button class="footer-buttons" onClick={()=>this.filterButton('All')}>All</button>
-          <button class="footer-buttons" onClick={()=>this.filterButton('active')} id='activeTodos'>Active</button>
-          <button class="footer-buttons" onClick={()=>this.filterButton('completed')} id='completedTodos'>Completed</button>
+          <button className="footer-buttons" onClick={()=>this.filterButton('All')}>All</button>
+          <button className="footer-buttons" onClick={()=>this.filterButton('active')} id='activeTodos'>Active</button>
+          <button className="footer-buttons" onClick={()=>this.filterButton('completed')} id='completedTodos'>Completed</button>
         </div>
         <div>
-          <button class="footer-buttons clear-completed-todos" onClick={()=>this.filterButton('clearCompleted')}>Clear Completed</button>
+          <button className="footer-buttons clear-completed-todos" onClick={()=>this.filterButton('clearCompleted')}>Clear Completed</button>
         </div>
       </div>
         );
@@ -162,8 +163,8 @@ class TodoList extends React.Component{
         );
     }
     
-    }*/
-@observer
+    }
+/*@observer
 class A extends React.Component{
     
    
@@ -186,7 +187,7 @@ class B extends React.Component{
         this.name=event.target.value;
     }
     render(){
-        const {temp} = this.props;
+        //const {temp} = this.props;
         return(
             <div>
                 <input type='text' style={{background: 'green'}} onChange={this.onChange}/>
@@ -198,7 +199,7 @@ class B extends React.Component{
 @inject ('temp')
 class C extends React.Component{
     render(){
-        const {temp,name} = this.props
+        const {temp,name} = this.props;
          console.log("C",temp,name);
         return(
             <div>
@@ -210,7 +211,7 @@ class C extends React.Component{
 @inject ('temp')
 class D extends React.Component{
     render(){
-        const {temp} = this.props
+        const {temp} = this.props;
         console.log("D",temp);
         return(
             <div >
@@ -220,4 +221,4 @@ class D extends React.Component{
     }
 }
 
-export default A;
+export default A;*/

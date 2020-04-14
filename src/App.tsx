@@ -1,4 +1,13 @@
 import React from "react";
+import {observer} from 'mobx-react';
+//import { configure } from 'mobx';
+import{
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import {TodoList} from './components/Todolist/index.js';
 import {CarsList} from './components/CarsList/index.js';
 import Form from './components/forms/Forms.js';
@@ -7,26 +16,19 @@ import {FavouriteDesert} from './components/forms/desert.js';
 import {VisitedCities} from './components/forms/cities.js';
 import {YourState} from './components/forms/yourstate.js';
 import {Disable} from './components/forms/disable.js';
-import CountryDashboardApp from './components/Countries-Dashboard/CountriesDashboardApp.js';
-import CountryDetails from './components/Countries-Dashboard/CountryDetails.js';
- import{
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import CountryDashboardApp from './components/Countries-Dashboard/CountriesDashboardApp';
+import CountryDetails from './components/Countries-Dashboard/CountryDetails';
+ 
 import './App.css';
 import Projects from './components/Project.js';
 import EmojiGameApp from  './components/EmojisGameApp/EmojiGameApp/index.js';
-import A from  './components/mobxTodolist/TodolistApp.js';
-import CounterApp from './components/CounterApp/CounterApp.js';
-import CounterPage from './components/CounterPage/index.js';
-import {observer} from 'mobx-react';
-import { configure } from 'mobx';
-import themeStore from './stores/stores/index.js';
-import TodoApp from './NewTodoList/TodoApp/index.js';
-import EventApp from './components/EventApp/EventApp/index.js';
-configure ({ enforecActions: true});
+//import A from  './components/mobxTodolist/TodolistApp.js';
+import CounterApp from './components/CounterApp/CounterApp';
+//import CounterPage from './components/CounterPage/index';
+import themeStore from './stores/stores/index';
+import TodoApp from './components/NewTodoList/NewTodoList/TodoApp/index';
+import EventApp from './components/EventApp/EventApp/index';
+//configure ({ enforecActions: true});
 @observer
 class App extends React.Component{
   
@@ -47,9 +49,9 @@ class App extends React.Component{
     <Router>
 
         <Switch>
-          <Route path="/counter-page">
+          {/*<Route path="/counter-page">
             <CounterPage />
-          </Route>
+          </Route>*/}
           <Route path="/CarsList">
             <CarsList />
           </Route>
@@ -86,9 +88,9 @@ class App extends React.Component{
           <Route path='/CounterApp'>
           <CounterApp />
           </Route>
-          <Router path='/mobxTodoList'>
+          {/*<Router path='/mobxTodoList'>
           <A/>
-          </Router>
+          </Router>*/}
           <Router path='/NewTodoList'>
           <TodoApp/>
           </Router>
