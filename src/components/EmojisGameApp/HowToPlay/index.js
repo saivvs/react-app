@@ -5,10 +5,10 @@ class HowToPlay extends React.Component{
         const {selectedTheme}=this.props
         return(
             <Footer selectedTheme={selectedTheme}>
-                <FooterHeading>
+                <FooterHeading selectedTheme={selectedTheme}>
                     How To Play?
                 </FooterHeading>
-                <FooterDescrption>
+                <FooterDescrption selectedTheme={selectedTheme}>
                     Get points by clicking on an image but don't click on any image more than once
                 </FooterDescrption>
             </Footer>

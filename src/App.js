@@ -28,6 +28,7 @@ import CounterApp from './components/CounterApp/CounterApp';
 import themeStore from './stores/stores/index';
 import TodoApp from './components/NewTodoList/NewTodoList/TodoApp/index';
 import EventApp from './components/EventApp/EventApp/index';
+import GridMemoryGame from './components/GridMemoryGame/GridMemoryGame';
 //configure ({ enforecActions: true});
 @observer
 class App extends React.Component{
@@ -96,6 +97,9 @@ class App extends React.Component{
           </Router>
           <Router path='/EventApp'>
           <EventApp/>
+          </Router>
+          <Router path='/GridMemoryGame'>
+          <GridMemoryGame/>
           </Router>
           <Route path="/">
           <Projects/>

@@ -2,18 +2,15 @@ import React from 'react';
 import {IoIosMoon} from 'react-icons/io';
 import {observer} from 'mobx-react'
 
-type selectedThemeProps={
-    selectedTheme:any
-}
 @observer
-class Header extends React.Component<selectedThemeProps>{
+class Header extends React.Component{
     state={
         dispalyText:'Where in the World?',
         themeText:' Light Mode',
     }
     handleThemeText = () =>{
 
-//this.props.onChangeTheme();
+this.props.onChangeTheme();
         this.setState({
             themeText:this.state.themeText==='Light Mode'?' Dark Mode':'Light Mode',
         });

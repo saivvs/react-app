@@ -16,7 +16,7 @@ class AddTodo extends React.Component{
         todoAppStore.onTodo(this.todoTitle);
     }
     @action.bound
-    onChangeInput(e:any){
+    onChangeInput(e){
         this.todoTitle = e.target.value;
         if(e.keyCode===13){
             this.onAddTodo();

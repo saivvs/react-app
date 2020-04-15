@@ -11,18 +11,18 @@ class TodoStores {
     onTodo(userInput){
         this.todos.push(new MobxTodoModel(userInput));
     }
+    
     @action.bound
     onRemoveTodo(todo){
-        //console.log('remove',todo);
-        //console.log(this.todos);
         let remainingTodos=this.todos.filter((eachtodo)=>eachtodo.todoId !== todo);
-        //console.log('remaining',remainingTodos);
         this.todos=remainingTodos;
     }
+    
     @action.bound
     onChangeSelectedFilter(type){
         this.selectedFilter = type;
     }
+    
     @computed
     get fiteredTodosFromAllTodos(){
         let filterTodos = [];

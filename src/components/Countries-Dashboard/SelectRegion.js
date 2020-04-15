@@ -1,9 +1,7 @@
 import React from 'react';
 
-type selectedThemeProps={
-    selectedTheme:any
-}
-class SelectRegion extends React.Component<selectedThemeProps>{
+
+class SelectRegion extends React.Component{
     render(){
         const {selectRegion} = this.props;
         return(

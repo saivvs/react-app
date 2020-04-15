@@ -1,13 +1,6 @@
 import React from 'react';
 import CountryCard from './CountryCard';
-type DifferentProps={
-    countriesList:any,
-    searchText:string,
-    regions:string,
-    selectedTheme:any,
-    onClickChangePage:any
-}
-class Countries extends React.Component<DifferentProps>{
+class Countries extends React.Component{
     showFilteredCountries=()=>{
         const {countriesList,searchText,regions,selectedTheme,onClickChangePage} = this.props;
         const filteredCountryList=countriesList.filter(eachCountryObj=>{

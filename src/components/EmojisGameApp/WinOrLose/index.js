@@ -17,6 +17,7 @@ class WinOrLose extends React.Component{
             <Score selectedTheme={selectedTheme}>{score}</Score>
             <GameState gameStateTextColor={gameStateTextColor}>{gameState}</GameState>
             <PlayAgainButton onClick={onPlayAgainClick}>Play Again</PlayAgainButton>
+            <Score selectedTheme={selectedTheme}>Designed By: SAI VVS😎</Score>
         </WinOrLoseTag>
     )}
 }

@@ -5,11 +5,8 @@ import todoAppStore from '../../../../stores/TodoStores/index';
 
 import {TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComponent';
 
-type TodoProps={
-    eachToDo:any
-}
 @observer
-class Todo extends  React.Component<TodoProps>{
+class Todo extends  React.Component{
     
     onCompltedTodo=()=>{
         const {eachToDo}=this.props;
