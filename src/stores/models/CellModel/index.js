@@ -7,7 +7,7 @@ class CellModel{
     
     constructor(){
         this.id = Math.floor(Math.random()*10000);
-        this.isHidden = '';
+        this.isHidden = false;
     }
 }
 

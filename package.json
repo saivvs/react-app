@@ -18,6 +18,8 @@
     "mobx-react": "6.1.4",
     "postcss-cli": "^7.1.0",
     "react": "^16.13.0",
+    "react-animated-css": "^1.2.1",
+    "react-css-animated": "^2.0.0",
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",

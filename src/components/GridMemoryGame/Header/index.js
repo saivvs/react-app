@@ -1,29 +1,30 @@
 import React from 'react';
-import {observable,action} from 'mobx';
+import {action} from 'mobx';
 import {observer} from 'mobx-react';
-import {HeaderTag,ToplevelTag,LevelAndButton,LevelTag,ThemeButton} from './styledComponent.js';
+
+import themeStore from '../../../stores/ThemeStore';
+
+import {HeaderTag,ToplevelTag,LevelAndButton,LevelTag,ThemeButton} from './styledComponents.js';
 
 @observer
 class Header extends React.Component{
-    
     @action.bound
     onChangeSelectedTheme(){
-        
+        themeStore.onChangeSelectedTheme(themeStore.selectedTheme.themeButtonText);
     }
-    
-    
     render(){
+        const {level,topLevel,width}=this.props;
         return(
-            <HeaderTag>
+            <HeaderTag selectedTheme={themeStore.selectedTheme} width={width}>
                 <ToplevelTag>
-                    TopLevel:
+                    TopLevel:{topLevel}
                 </ToplevelTag>
                 <LevelAndButton>
                     <LevelTag>
-                        Level:
+                        Level:{level}
                     </LevelTag>
-                    <ThemeButton>
-                        Mode:
+                    <ThemeButton onClick={this.onChangeSelectedTheme} selectedTheme={themeStore.selectedTheme}>
+                        Mode:{themeStore.selectedTheme.themeButtonText}
                     </ThemeButton>
                 </LevelAndButton>
             </HeaderTag>
