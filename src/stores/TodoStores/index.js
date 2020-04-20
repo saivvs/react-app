@@ -1,3 +1,5 @@
+/*global fetch*/
+
 import {observable,action,computed} from 'mobx';
 
 import MobxTodoModel from '../models/TodoModel/index';
@@ -5,18 +7,65 @@ import MobxTodoModel from '../models/TodoModel/index';
 class TodoStores {
     @observable todos=[];
     @observable selectedFilter = 'ALL';
+    @observable isResponse
+    @observable timerId 
+    @observable todosFromServer 
+    @observable isErrorOccur
     
+    constructor(){
+        this.intialize(),
+        this.todosFromServer = [],
+        this.timerId = '';
+        this.isResponse = false;
+        this.isErrorOccur = false;
+    }
     
+    getTodosData=()=>{
+        fetch('https://jsonplaceholder.typicode.com/todos')
+        .then(response=>{
+            if(response.ok){
+                return response.json();
+            }
+            else{
+                return Promise.reject;
+            }
+        })
+        .then(data=>{this.makeTodoListFromServer(data)})
+        .catch(error=>{this.errorOccur});
+    }
+    
+    @action.bound
+    makeTodoListFromServer(data){
+        this.todosFromServer = data;
+        this.todos = data;
+        this.isResponse = true;
+    }
+    
+    @action.bound
+    errorOccur(){
+        this.isErrorOccur = true;
+    }
+    componentDidMount=()=>{
+     clearTimeout(this.timerId);   
+    }
+    
+    intialize=()=>{
+        this.timerId=setTimeout(this.getTodosData,15000);
+    }
     @action.bound
     onTodo(userInput){
         this.todos.push(new MobxTodoModel(userInput));
     }
     
+    
+    
     @action.bound
     onRemoveTodo(todo){
-        let remainingTodos=this.todos.filter((eachtodo)=>eachtodo.todoId !== todo);
-        this.todos=remainingTodos;
+        
     }
+    
+    
+    
     
     @action.bound
     onChangeSelectedFilter(type){
@@ -24,7 +73,7 @@ class TodoStores {
     }
     
     @computed
-    get fiteredTodosFromAllTodos(){
+    get filteredTodosFromAllTodos(){
         let filterTodos = [];
         switch(this.selectedFilter){
             case "All":{
@@ -48,7 +97,6 @@ class TodoStores {
                  break;
               }
         }
-        //console.log(filterTodos);
         return filterTodos;
     }
     @action.bound
@@ -61,6 +109,7 @@ class TodoStores {
         //console.log(countOfTodos);
         return countOfTodos;
     }
+    
 }
 const todoAppStore = new TodoStores();
 export default todoAppStore ;

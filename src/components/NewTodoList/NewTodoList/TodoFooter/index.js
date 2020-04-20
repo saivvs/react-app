@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 
 import todoAppStore from '../../../../stores/TodoStores/index';
 
-import {FooterTag,TodosCount,FilterButtons,AllButton,ActiveButton,CompletedButton,ClearCompletedButtonTag,ClearCompletedButton} from './styledComponent';
+import {FooterItems,FooterTag,TodosCount,FilterButtons,AllButton,ActiveButton,CompletedButton,ClearCompletedButtonTag,ClearCompletedButton} from './styledComponent';
 
 @observer
 class Footer extends React.Component{
@@ -13,6 +13,7 @@ class Footer extends React.Component{
     }
     render(){
         return(
+            <FooterItems>
             <FooterTag>
                 <TodosCount>
                     {todoAppStore.lengthOfTodos}
@@ -26,6 +27,7 @@ class Footer extends React.Component{
                     <ClearCompletedButton>ClearCompleted</ClearCompletedButton>
                 </ClearCompletedButtonTag>
             </FooterTag>
+            </FooterItems>
             );
     }
 }

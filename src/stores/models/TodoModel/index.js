@@ -5,13 +5,13 @@ class MobxTodoModel{
     @observable todoId
     @observable isChecked
     constructor(userInput){
-        this.todoId = Math.floor(Math.random()*10000);
-        this.todoTitle = userInput;
-        this.isChecked = false;
+        this.idd = Math.floor(Math.random()*10000);
+        this.title = userInput;
+        this.isCompleted = false;
     }
     @action.bound
     onChangeCheckBox(){
-        this.isChecked = !(this.isChecked);
+        this.isCompleted = !(this.isCompleted);
     }
 }
 

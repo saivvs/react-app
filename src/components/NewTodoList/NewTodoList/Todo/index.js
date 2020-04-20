@@ -1,21 +1,19 @@
 import React from 'react';
 import { observer } from "mobx-react";
 
-import todoAppStore from '../../../../stores/TodoStores/index';
-
-import {TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComponent';
+import {TodosTag,TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComponent';
 
 @observer
 class Todo extends  React.Component{
     
-    onCompltedTodo=()=>{
-        const {eachToDo}=this.props;
-       eachToDo.onChangeCheckBox(); 
+    onCompltedTodo=(completed)=>{
+        if(completed){
+            
+        }
     }
     
     onRemoveTodo=(event)=>{
-        //console.log(event.target.id);
-     todoAppStore.onRemoveTodo(event.target.id);
+        
     }
     
     onUpdateTodoTitle(){
@@ -23,13 +21,16 @@ class Todo extends  React.Component{
     }
     render(){
         const{eachToDo}=this.props;
-        //console.log(eachToDo.todoId);
+        const {title,completed} = eachToDo;
+        console.log(completed);
         return(
+            <TodosTag>
             <TodoTag>
-                <TodoCheckBox  type='checkbox' onChange={this.onCompltedTodo} checked={eachToDo.isChecked}/>
-                <TodoInput type='text' defaultValue={eachToDo.todoTitle} />
-                <RemoveButton onClick={this.onRemoveTodo} id={eachToDo.todoId}>❌</RemoveButton>
+                <TodoCheckBox  type='checkbox' onClick={this.onCompltedTodo(completed)} checked={completed}/>
+                <TodoInput type='text' defaultValue={title} checked={completed} disabled={completed}/>
+                <RemoveButton >❌</RemoveButton>
             </TodoTag>
+            </TodosTag>
             );
     }
 }
