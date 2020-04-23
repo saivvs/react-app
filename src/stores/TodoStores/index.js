@@ -1,71 +1,73 @@
-/*global fetch*/
-
 import {observable,action,computed} from 'mobx';
+import {API_INTIAL,API_FETCHING,API_SUCCESS,API_FAILED} from '@ib/api-constants';
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 import MobxTodoModel from '../models/TodoModel/index';
 
+
+
 class TodoStores {
-    @observable todos=[];
-    @observable selectedFilter = 'ALL';
-    @observable isResponse
-    @observable timerId 
-    @observable todosFromServer 
-    @observable isErrorOccur
+    @observable todos
+    @observable selectedFilter
+    @observable getTodoListAPIStatus
+    @observable getTodoListAPIError
+    todosAPISerivice
+    //@observable isResponse
+    //@observable timerId 
+    //@observable todosFromServer 
+    //@observable isErrorOccur
     
-    constructor(){
-        this.intialize(),
-        this.todosFromServer = [],
-        this.timerId = '';
-        this.isResponse = false;
-        this.isErrorOccur = false;
-    }
-    
-    getTodosData=()=>{
-        fetch('https://jsonplaceholder.typicode.com/todos')
-        .then(response=>{
-            if(response.ok){
-                return response.json();
-            }
-            else{
-                return Promise.reject;
-            }
-        })
-        .then(data=>{this.makeTodoListFromServer(data)})
-        .catch(error=>{this.errorOccur});
+    constructor(todoService){
+        this.todosAPISerivice = todoService;
+        this.intialize();
     }
     
     @action.bound
-    makeTodoListFromServer(data){
-        this.todosFromServer = data;
-        this.todos = data;
-        this.isResponse = true;
+    intialize(){
+        this.getTodoListAPIStatus = API_INTIAL;
+        this.getTodoListAPIError = null;
+        this.todos = [];
+        this.selectedFilter = 'ALL';
     }
     
     @action.bound
-    errorOccur(){
-        this.isErrorOccur = true;
-    }
-    componentDidMount=()=>{
-     clearTimeout(this.timerId);   
+    clearStore(){
+        this.intialize();
     }
     
-    intialize=()=>{
-        this.timerId=setTimeout(this.getTodosData,15000);
+    @action.bound
+    getTodosAPI(){
+        const todoPromise = this.todosAPISerivice.getTodosAPI();
+        return bindPromiseWithOnSuccess(todoPromise)
+        .to(this.setTodoAPIStatus,this.setTodoAPIResponse)
+        .catch(this.setTodoAPIError);
+    }
+    
+    
+    @action.bound
+    setTodoAPIStatus(apiStatus){
+        this.getTodoListAPIStatus = apiStatus;
+    }
+    
+    @action.bound
+    setTodoAPIResponse(data){
+        //this.todos = data;
+    }
+    
+    @action.bound
+    setTodoAPIError(error){
+        this.getTodoListAPIError = error;
     }
     @action.bound
     onTodo(userInput){
-        this.todos.push(new MobxTodoModel(userInput));
+        this.push(new MobxTodoModel(userInput));
+            //this.filteredTodosFromAllTodos();
     }
-    
-    
     
     @action.bound
     onRemoveTodo(todo){
         
     }
-    
-    
-    
     
     @action.bound
     onChangeSelectedFilter(type){
@@ -111,5 +113,6 @@ class TodoStores {
     }
     
 }
-const todoAppStore = new TodoStores();
-export default todoAppStore ;
+//const todoAppStore = new TodoStores();
+//export default todoAppStore ;
+export default TodoStores;

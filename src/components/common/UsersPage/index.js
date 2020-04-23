@@ -1,23 +1,29 @@
 import React,{Component} from 'react';
 import {observer,inject} from 'mobx-react';
+//import stores from '../../../stores/index.js';
 
-import LoadingWrapperWithFailure from '../common/LoadingWrapperWithFailure';
-import NoDataView from '../common/NoDataView';
+//import UserServices from '../services'
+import LoadingWrapperWithFailure from '../../common/LoadingWrapperWithFailure';
+import NoDataView from '../../common/NoDataView';
 
+//const userServices = new UserService()
+//const usersStore = new UserStore(userServices)
 
+//const userStore = stores.userStore;
 @inject('userStore')
 @observer
-class PracticeDataApp extends Component{
+class UsersPage extends Component{
+    
     
     componentDidMount(){
         this.doNetworkCalls();
     }
-    
+    getUserStore=()=>{
+        return this.props.userStore
+    }
     doNetworkCalls=()=>{
         this.getUserStore().getUsersAPI();
-    }
-    getUserStore=()=>{
-        return this.props.userStore;
+        //userStore.getUsersAPI(); 
     }
     
     renderUsersList=()=>{
@@ -27,9 +33,10 @@ class PracticeDataApp extends Component{
         }
         return users.map(userName=> <div>{userName}</div>);
     }
-    
     render(){
+        
         const {getUsersApiStatus,getUsersApiError} = this.getUserStore();
+       
         return(
             <LoadingWrapperWithFailure 
             apiStatus={getUsersApiStatus} 
@@ -41,4 +48,4 @@ class PracticeDataApp extends Component{
     }
 }
 
-export default PracticeDataApp;
+export default UsersPage;

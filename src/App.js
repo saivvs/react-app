@@ -29,6 +29,11 @@ import themeStore from './stores/stores/index';
 import TodoApp from './components/NewTodoList/NewTodoList/TodoApp/index';
 import EventApp from './components/EventApp/EventApp/index';
 import GridMemoryGame from './components/GridMemoryGame/GridMemoryGame';
+
+import UsersPage from './components/common/UsersPage';
+import {Provider} from 'mobx-react';
+import stores from './stores';
+import PracticeDataApp from './components/practices';
 //configure ({ enforecActions: true});
 @observer
 class App extends React.Component{
@@ -47,6 +52,7 @@ class App extends React.Component{
     }
     render(){
   return (
+    <Provider {...stores}>
     <Router>
 
         <Switch>
@@ -101,12 +107,20 @@ class App extends React.Component{
           <Router path='/GridMemoryGame'>
           <GridMemoryGame/>
           </Router>
+          <Route path='/UsersPage'>
+            <UsersPage/>
+          </Route>
+          <Route path='/PracticeDataApp'>
+            <PracticeDataApp/>
+          </Route>
           <Route path="/">
           <Projects/>
           </Route>
+          
         </Switch>
     
     </Router>
+    </Provider>
   );
     }
 }

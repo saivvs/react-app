@@ -36,6 +36,12 @@ function Projects(){
           <li>
           <Link to='/GridMemoryGame'>GridMemoryGame</Link>
           </li>
+          <li>
+          <Link to='/UsersPage'>UsersPage</Link>
+          </li>
+          <li>
+          <Link to='/PracticeDataApp'>PracticeDataApp</Link>
+          </li>
           </ul>
         </nav>
         </div>);

@@ -8,10 +8,11 @@ import {TodoListTag} from './styledComponent';
 @observer
 class TodoList extends React.Component{
     render(){
-        const {todos,onRemoveTodo}=this.props;
+        const {todos,onRemoveTodo,onTodo}=this.props;
+        //console.log('todolist',todos);
         return(
             <TodoListTag>
-            {todos.map(eachTodo=><Todo onRemoveTodo={onRemoveTodo} eachToDo={eachTodo}  key={(eachTodo.id)} />)}
+            {todos.map(eachTodo=><Todo onTodo={onTodo} onRemoveTodo={onRemoveTodo} eachToDo={eachTodo}  key={(eachTodo.id)} />)}
             </TodoListTag>
             );
     }

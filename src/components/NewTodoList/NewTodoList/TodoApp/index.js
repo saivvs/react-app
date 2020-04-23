@@ -1,37 +1,48 @@
-/*global fetch*/
 import React from 'react';
-import { observer } from "mobx-react";
-import {observable,action} from 'mobx';
+import { observer,inject } from "mobx-react";
 
-import todoAppStore from '../../../../stores/TodoStores/index';
-
-import AddTodo from '../AddTodo/index';
-import TodoList from '../TodoList/index';
-import Footer from '../TodoFooter/index';
-import Loading from '../Loading';
-
-import {TodoAppTag,NoDataFound} from './styledComponent';
+import LoadingWrapperWithFailure from '../../../common/LoadingWrapperWithFailure';
 
 
+import RenderTodos from '../RenderTodos';
+
+
+
+
+@inject('todoStore')
 @observer
 class TodoApp extends React.Component{
    
+   componentDidMount(){
+       this.doNetworkCalls();
+   }
+   
+   doNetworkCalls=()=>{
+       this.getTodoStore().getTodosAPI();
+   }
+   
+   getTodoStore=()=>{
+       return this.props.todoStore;
+   }
+   
+   renderTodoList=()=>{
+       const  todoStore  = this.getTodoStore();
+       return(
+           <RenderTodos 
+           todoStore={todoStore}
+           />
+           );
+   }
     
     render(){
-        const{filteredTodosFromAllTodos,isResponse,isErrorOccur,onRemoveTodo,lengthOfTodos} = todoAppStore;
-        
+        const {getTodoListAPIStatus,getTodoListAPIError} = this.getTodoStore();
         return(
-            <TodoAppTag>
-                
-                {isResponse?<AddTodo />:<Loading/>}
-                {lengthOfTodos<1?<NoDataFound>
-                        NoDataFound
-                </NoDataFound>:
-                <TodoList todos={filteredTodosFromAllTodos} onRemoveTodo={onRemoveTodo} />}
-                {isResponse||isErrorOccur?<Footer />:null}
-                {/*{isResponse?<TodoList todos={filteredTodosFromAllTodos} onRemoveTodo={onRemoveTodo} />:<Loading/>}
-                {isErrorOccur?<ErrorOccur/>:<Footer />}*/}
-            </TodoAppTag>
+                <LoadingWrapperWithFailure
+                    apiStatus={getTodoListAPIStatus}
+                    apiError = {getTodoListAPIError}
+                    onRetryClick = {this.doNetworkCalls}
+                    renderSuccessUI = {this.renderTodoList}
+                />
             );
     }
 }

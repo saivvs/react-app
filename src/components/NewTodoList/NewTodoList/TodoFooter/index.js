@@ -2,21 +2,23 @@ import React from 'react';
 
 import { observer } from "mobx-react";
 
-import todoAppStore from '../../../../stores/TodoStores/index';
+//import todoAppStore from '../../../../stores/TodoStores/index';
 
 import {FooterItems,FooterTag,TodosCount,FilterButtons,AllButton,ActiveButton,CompletedButton,ClearCompletedButtonTag,ClearCompletedButton} from './styledComponent';
 
 @observer
 class Footer extends React.Component{
     renderFilters=(event)=>{
-        todoAppStore.onChangeSelectedFilter(event.target.value);
+        const {onChangeSelectedFilter} = this.props;
+        onChangeSelectedFilter(event.target.value);
     }
     render(){
+        const {lengthOfTodos} = this.props;
         return(
             <FooterItems>
             <FooterTag>
                 <TodosCount>
-                    {todoAppStore.lengthOfTodos}
+                    {lengthOfTodos}
                 </TodosCount>
                 <FilterButtons>
                     <AllButton onClick={this.renderFilters} value='All'>All</AllButton>

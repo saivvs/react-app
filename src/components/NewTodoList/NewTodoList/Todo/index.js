@@ -7,9 +7,7 @@ import {TodosTag,TodoTag,TodoInput,TodoCheckBox,RemoveButton} from './styledComp
 class Todo extends  React.Component{
     
     onCompltedTodo=(completed)=>{
-        if(completed){
-            
-        }
+        
     }
     
     onRemoveTodo=(event)=>{
@@ -26,7 +24,7 @@ class Todo extends  React.Component{
         return(
             <TodosTag>
             <TodoTag>
-                <TodoCheckBox  type='checkbox' onClick={this.onCompltedTodo(completed)} checked={completed}/>
+                <TodoCheckBox  type='checkbox' onClick={this.onCompltedTodo(completed)} defaultchecked={completed}/>
                 <TodoInput type='text' defaultValue={title} checked={completed} disabled={completed}/>
                 <RemoveButton >❌</RemoveButton>
             </TodoTag>
