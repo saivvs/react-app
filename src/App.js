@@ -8,6 +8,10 @@ import{
   Link
 } from "react-router-dom";
 
+import authenticationRoute from './Authentication/routes';
+import {routes} from './EcommercesApp/routes';
+//import {sizeFilterRoute} from './EcommercesApp/routes';
+
 import {TodoList} from './components/Todolist/index.js';
 import {CarsList} from './components/CarsList/index.js';
 import Form from './components/forms/Forms.js';
@@ -21,6 +25,7 @@ import CountryDetails from './components/Countries-Dashboard/CountryDetails';
  
 import './App.css';
 import Projects from './components/Project.js';
+import MyApps from './components/MyApps.js';
 import EmojiGameApp from  './components/EmojisGameApp/EmojiGameApp/index.js';
 //import A from  './components/mobxTodolist/TodolistApp.js';
 import CounterApp from './components/CounterApp/CounterApp';
@@ -35,6 +40,9 @@ import {Provider} from 'mobx-react';
 import stores from './stores';
 import PracticeDataApp from './components/practices';
 //configure ({ enforecActions: true});
+import productStore from './EcommercesApp/stores/index.js';
+import authStore from './Authentication/stores/index.js';
+import cartStore from './EcommercesApp/stores';
 @observer
 class App extends React.Component{
   
@@ -47,18 +55,21 @@ class App extends React.Component{
     //this.selectedTheme = theme;
   }
   onChangeTheme=()=>{
-        
-    this.setCurrentTheme()
+    this.setCurrentTheme();
     }
     render(){
   return (
-    <Provider {...stores}>
+    <Provider {...stores} {...productStore} {...authStore} {...cartStore} >
     <Router>
-
         <Switch>
+        {authenticationRoute}
+        {routes}
+        
+        {}
           {/*<Route path="/counter-page">
             <CounterPage />
-          </Route>*/}
+          </Route>
+          
           <Route path="/CarsList">
             <CarsList />
           </Route>
@@ -97,7 +108,7 @@ class App extends React.Component{
           </Route>
           {/*<Router path='/mobxTodoList'>
           <A/>
-          </Router>*/}
+          </Router>
           <Router path='/NewTodoList'>
           <TodoApp/>
           </Router>
@@ -113,12 +124,13 @@ class App extends React.Component{
           <Route path='/PracticeDataApp'>
             <PracticeDataApp/>
           </Route>
+          <Route path='/MyApps'>
+            <MyApps/>
+          </Route>
           <Route path="/">
           <Projects/>
-          </Route>
-          
+          </Route>*/}
         </Switch>
-    
     </Router>
     </Provider>
   );
@@ -126,4 +138,6 @@ class App extends React.Component{
 }
 
 export default App;
+
+    
 

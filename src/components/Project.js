@@ -1,49 +1,42 @@
 import  React from 'react';
-import {Link} from "react-router-dom";
+import {Link,Redirect} from "react-router-dom";
+import {observer} from 'mobx-react';
+import {observable,action } from 'mobx';
 
-function Projects(){
+@observer
+class Projects extends React.Component{
     
-       return(<div>
-        <nav>
-          <ul>
-          <li>
-          <Link to="/CarsList">CarsList</Link>
-          </li>
-          <li>
-          <Link to="/TodoList">TodoList</Link>
-          </li>
-          <li>
-          <Link to="/forms">Forms</Link>
-          </li>
-          <li>
-          <Link to="/CountryDashboardApp">CountryDashboardApp</Link>
-          </li>
-          <li>
-          <Link to='/EmojiGameApp'>EmojiGameApp</Link>
-          </li>
-          <li>
-          <Link to='/CounterApp'>CounterApp</Link>
-          </li>
-          <li>
-          <Link to='/mobxTodolist'>mobxTodolist</Link>
-          </li>
-          <li>
-          <Link to='/NewTodoList'>NewTodoList</Link>
-          </li>
-          <li>
-          <Link to='/EventApp'>EventApp</Link>
-          </li>
-          <li>
-          <Link to='/GridMemoryGame'>GridMemoryGame</Link>
-          </li>
-          <li>
-          <Link to='/UsersPage'>UsersPage</Link>
-          </li>
-          <li>
-          <Link to='/PracticeDataApp'>PracticeDataApp</Link>
-          </li>
-          </ul>
-        </nav>
+    @observable isLogged;
+    
+    @action.bound
+    gotoGridScreenIfLoggedIn(){
+        if(this.isLogged){
+            this.isLogged = false; 
+        }
+        else{
+            this.isLogged = true; 
+        }
+        return (
+            <Redirect 
+                to={{
+                pathname:'/MyApps',
+                }}
+            />
+            );
+    }
+   
+    render(){
+      if(this.isLogged){
+             return this.gotoGridScreenIfLoggedIn();
+         }
+          return(
+              <div>
+            <input tpe='text' placeholder='enterYourName'/>
+            <input type='password' placeholder='password' />
+            
+            <button onClick={this.gotoGridScreenIfLoggedIn}>LOGIN</button>
         </div>);
+        
+    }
 }
 export default Projects;

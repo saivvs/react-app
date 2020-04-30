@@ -12,11 +12,7 @@ class TodoStores {
     @observable getTodoListAPIStatus
     @observable getTodoListAPIError
     todosAPISerivice
-    //@observable isResponse
-    //@observable timerId 
-    //@observable todosFromServer 
-    //@observable isErrorOccur
-    
+     
     constructor(todoService){
         this.todosAPISerivice = todoService;
         this.intialize();
