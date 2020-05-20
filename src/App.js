@@ -2,14 +2,23 @@ import React from "react";
 import {observer} from 'mobx-react';
 //import { configure } from 'mobx';
 import{
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
-import authenticationRoute from './Authentication/routes';
-import {routes} from './EcommercesApp/routes';
+import {E_COMMERCE_SIGN_IN_PATH} from './Authentication/constants/RouteConstants';
+import {E_COMMERCE_PRODUCTS_PATH} from './EcommercesApp/constants/RouteConstants';
+import {ADVANCED_CONCEPTS_PRACTICE_PATH} from './common/constants/RouteConstants';
+//import {routes} from './EcommercesApp/routes';
+import {ProtectedRoute} from './Authentication/utils/ProtectedRoutes';
+import {SignInRouteWithRouter} from './Authentication/routes/SignInRoute';
+import {ProductsPage} from './EcommercesApp/routes/ProductsPageRoute/ProductsPageRoute.js';
+import {AdvancedConceptPractice} from './common/routes/PracticeAdvancedConceptsRoute/PracticeAdvancedConceptsRoute.js';
+//import {}
+//import {DummyComponent} from './common/DummyComponent'
 //import {sizeFilterRoute} from './EcommercesApp/routes';
 
 import {TodoList} from './components/Todolist/index.js';
@@ -24,7 +33,7 @@ import CountryDashboardApp from './components/Countries-Dashboard/CountriesDashb
 import CountryDetails from './components/Countries-Dashboard/CountryDetails';
  
 import './App.css';
-import Projects from './components/Project.js';
+import Projects from './components/Project';
 import MyApps from './components/MyApps.js';
 import EmojiGameApp from  './components/EmojisGameApp/EmojiGameApp/index.js';
 //import A from  './components/mobxTodolist/TodolistApp.js';
@@ -37,35 +46,41 @@ import GridMemoryGame from './components/GridMemoryGame/GridMemoryGame';
 
 import UsersPage from './components/common/UsersPage';
 import {Provider} from 'mobx-react';
-import stores from './stores';
+import {stores} from './stores';
 import PracticeDataApp from './components/practices';
-//configure ({ enforecActions: true});
-import productStore from './EcommercesApp/stores/index.js';
-import authStore from './Authentication/stores/index.js';
-import cartStore from './EcommercesApp/stores';
-@observer
-class App extends React.Component{
+
+ class App extends React.Component{
   
-  getCurrentTheme = () =>{
-    let temp = themeStore.selectedTheme;
-    return temp;
-  }
-  setCurrentTheme = () =>{
-    themeStore.updateTheme();
-    //this.selectedTheme = theme;
-  }
-  onChangeTheme=()=>{
-    this.setCurrentTheme();
-    }
-    render(){
+//   getCurrentTheme = () =>{
+//     let temp = themeStore.selectedTheme;
+//     return temp;
+//   }
+//   setCurrentTheme = () =>{
+//     themeStore.updateTheme();
+//     //this.selectedTheme = theme;
+//   }
+//   onChangeTheme=()=>{
+//     this.setCurrentTheme();
+//    }
+
+render(){ 
   return (
-    <Provider {...stores} {...productStore} {...authStore} {...cartStore} >
+    <Provider {...stores} >
     <Router>
         <Switch>
-        {authenticationRoute}
+      <Route path={E_COMMERCE_SIGN_IN_PATH} component={SignInRouteWithRouter}/>
+      <Route path={E_COMMERCE_PRODUCTS_PATH} component={ProductsPage} /> 
+      <Route path={ADVANCED_CONCEPTS_PRACTICE_PATH} component={AdvancedConceptPractice}/>
+      <Route path='/' component={Home} />  
+      
+        {/*{authenticationRoute}
         {routes}
+        {console.log(SignInRoute,'authenticationRoute')}
+        <Route path="/" component={authenticationRoute}/>
+        <ProtectedRoute componentPath={E_COMMERCE_SIGN_IN_PATH} renderComponent={SignInRoute}/>     
         
-        {}
+        */}
+        
           {/*<Route path="/counter-page">
             <CounterPage />
           </Route>
@@ -136,6 +151,18 @@ class App extends React.Component{
   );
     }
 }
+
+function Home(){
+  return(
+    <Redirect
+        to={{
+            //pathname:E_COMMERCE_SIGN_IN_PATH,
+            pathname:ADVANCED_CONCEPTS_PRACTICE_PATH,
+            }}
+            />
+    );
+}
+
 
 export default App;
 

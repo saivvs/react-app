@@ -13,7 +13,7 @@ import {Header} from '../Header';
 import {ProductsList} from '../ProductList';
 import {ProductCart} from '../ProductCart';
 
-@inject('productStore','authStore','cartStore')
+@inject('productStore','cartStore')
 @observer
 class ProductsPage extends Component{
     
@@ -21,9 +21,11 @@ class ProductsPage extends Component{
         this.getProductStore().getProductList();   
     }
     renderProductList=observer(()=>{
-        const {sortedAndFilterProducts,onSelectSize,onChangeSortBy,totalNoOfProductsDispalyed,sizeFilter}=this.props.productStore;
-        const {onClickAddToCart} = this.props.cartStore;
         
+        const {sortedAndFilterProducts,onSelectSize,onChangeSortBy,totalNoOfProductsDispalyed,sizeFilter}=this.props.productStore;
+        //console.log(sortedAndFilterProducts,'productspage component');
+        const {onClickAddToCart} = this.props.cartStore;
+        //return(null)
         return(
             
             <ProductsPageTag>
@@ -31,7 +33,7 @@ class ProductsPage extends Component{
             <SignOutButton onClick={this.onClickSignOut}>
                 Sign Out
             </SignOutButton>
-                <ProductCart  />
+            <ProductCart  />
             </SignOutButtonAndCartTag>
             <ProductsPageSubTag>
             <SizeFilter  onSelectSize={onSelectSize} sizeFilter={sizeFilter}/>
@@ -42,6 +44,7 @@ class ProductsPage extends Component{
             </ProductsPageSubTag>
             
             </ProductsPageTag>
+            
             );
     })
     
@@ -59,7 +62,6 @@ class ProductsPage extends Component{
     
     render(){
         const {getProductListAPIStatus,getProductListAPIError} = this.props.productStore;
-       
         return(
                        <LoadingWrapperWithFailure
                     apiStatus={getProductListAPIStatus}

@@ -3,7 +3,7 @@ import { networkCallWithApisauce } from '../../utils/APIUtils';
 import { apiMethods } from '../../constants/APIConstants';
 
 import endpoints from '../endpoints';
-class AuthService {
+class AuthAPI {
     
     api
     
@@ -24,4 +24,4 @@ class AuthService {
     }
 }
 
-export default AuthService;
+export   {AuthAPI};

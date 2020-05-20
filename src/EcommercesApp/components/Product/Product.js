@@ -3,7 +3,7 @@ import {observer} from 'mobx-react';
 import {ToastContainer,toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {ProductDiscrption,ProductTag,ProductSubTag,ProductImage,ProductTitleTag,ProductPriceTag,ProductEMITag,AddCartButton} from './styledComponents.js';
+import {ProductDiscrption,ProductTag,ProductSubTag,ProductImage,ProductTitleTag,ProductPriceTag,ProductEMITag,AddCartButton,ProductTitleTagBorder,Freeshipping} from './styledComponents.js';
 
 @observer
 class Product extends Component{
@@ -22,18 +22,21 @@ class Product extends Component{
     }
     
     render(){
-        const {currencyFormat,price,image,title,installments,id} = this.props.eachproduct;
+        const {currencyFormat,price,image,title,installments,isFreeShipping} = this.props.eachproduct;
         const EachInstamellentsPrice = Math.round(((price/installments)*100)/100);
         
         return(
             <ProductTag>
             <ProductSubTag>
+                {isFreeShipping?<Freeshipping>Free shipping</Freeshipping>:null}
                 <ProductImage src= {image} >
                 </ProductImage>
                 <ProductDiscrption>
                 <ProductTitleTag>
                     {title}
                 </ProductTitleTag>
+                <ProductTitleTagBorder>
+                </ProductTitleTagBorder>
                 <ProductPriceTag>
                     {currencyFormat} {price}
                 </ProductPriceTag>

@@ -4,57 +4,62 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 import {setAccessToken,clearUserSession} from '../../utils/StorageUtils.js';
 
 class AuthStore{
-    
     @observable getUserSignInAPIStatus
     @observable getUserSignInAPIERROR
     @observable token
     authAPIService
     
-    constructor(authService){
-        this.authAPIService = authService;
-        this.initilise();    
+    constructor(authAPIService){
+        this.authAPIService = authAPIService;
+        this.initialise();    
     }
     
     @action.bound
-    initilise(){
+    initialise(){
         this.getUserSignInAPIStatus = API_INTIAL;
-        this.getUserSignInAPIERROR = null;
-        
+        this.getUserSignInAPIError = null;
     }
     
     @action.bound
     setUserSignInAPIResponse(response){
-        this. token = response.map((token)=>token.access_token);
-        //console.log("token",token)
+        this.token = response.map((token)=>token.access_token);
         setAccessToken(this.token);
     }
     
     @action.bound
     setGetUserSignInAPIError(error){
-        this.getUserSignInAPIERROR = error;
+        //console.log(error,'error')
+        this.getUserSignInAPIError = error;
     }
     
     @action.bound
     setGetUserSignInAPIStatus(apiStatus){
+        //console.log(apiStatus)
            this.getUserSignInAPIStatus = apiStatus;
     }
     
     @action.bound
-    userSignIn(){
+    userSignIn(request, onSuccess, onFailure){
+        //console.log('authstore');
      const signInPromise = this.authAPIService.signinAPI();  
-     //console.log('signInPromise=',signInPromise);
      return bindPromiseWithOnSuccess(signInPromise)
-     .to(this.setGetUserSignInAPIStatus,this.setUserSignInAPIResponse)
-     .catch(this.setGetUserSignInAPIError);
+     .to(this.setGetUserSignInAPIStatus,response=>{
+         this.setUserSignInAPIResponse(response);
+         onSuccess();
+     })
+     .catch(error=>{
+         this.setGetUserSignInAPIError(error);
+         onFailure();
+         
+     });
     }
-    
     
     @action.bound
     userSignOut(){
-        this.initilise();
+        this.initialise();
         clearUserSession();
     }
     
 }
 
-export default AuthStore;
+export {AuthStore};

@@ -10,11 +10,10 @@ import {Product} from '../Product';
 class ProductsList extends Component{
     render(){
         const {productList,onClickAddToCart} = this.props;
+        console.log('productList cmponent',productList);
         return(
             <ProductsListTag>
             {productList.map((eachproduct)=><Product key={eachproduct.id} onClickAddToCart={onClickAddToCart} eachproduct={eachproduct}/>)}
-            
-            
             </ProductsListTag>
             );
     }

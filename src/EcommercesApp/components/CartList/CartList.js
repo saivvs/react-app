@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import {observer} from 'mobx-react';
 
 
-import {CartListTag} from './styledComponents.js';
+import {CartListTag,AddProduct} from './styledComponents.js';
 import {CartItem} from '../CartItem';
 
 
@@ -13,8 +13,9 @@ class CartList extends Component{
         const {cartProductList,getProductDetailsById,onRemoveCartItem} = this.props;
         return (
             <CartListTag>
-            {cartProductList.map((eachid)=><CartItem key={eachid.productId} getProductDetailsById={getProductDetailsById} cartProductId={eachid.productId} onRemoveCartItem={onRemoveCartItem} />)}
-                
+            {cartProductList.length === 0?<AddProduct>Add some products in cart</AddProduct>:
+            cartProductList.map((eachid)=><CartItem key={eachid.productId} getProductDetailsById={getProductDetailsById} cartProductId={eachid.productId} quantity={eachid.quantity} onRemoveCartItem={onRemoveCartItem} />)
+            }          
             </CartListTag>
             );
     }

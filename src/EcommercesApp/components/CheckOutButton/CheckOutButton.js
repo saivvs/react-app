@@ -6,9 +6,15 @@ import {CheckOutButtonTag} from './styledComponents.js';
 class CheckOutButton extends Component{
     
     onClickCheckOut=()=>{
-        const{totalCartAmount,clearCart}=this.props;
+        const{totalCartAmount,cartProductList,clearCart}=this.props;
+        if(cartProductList.length<1){
+            alert('Invalid Entry');
+        }
+        else{
         totalCartAmount;
+        alert('Thank you for shopping with us  😊.Your products will be delivered in 3 days to the address mentioned in your profile.');
         clearCart();
+        }
     }
     render(){
         return(

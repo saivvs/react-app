@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import {E_COMMERCE_SIGN_IN_PATH} from '../constants/RouteConstants'
 import{
   BrowserRouter as Router,
   Switch,
@@ -6,13 +7,20 @@ import{
   Link
 } from "react-router-dom";
 
-import SignIn from './signInRoute/signInRoute.js';
+import SignInRoute from './SignInRoute';
 
+// import {ProtectRoute} from '../utils/ProtectedRoutes';
 
-const routes = [
+const authenticationRoute = [
     
-    <Route path='/signin' component={SignIn}/>
-    ];
-    
-    
-export default routes;
+    <Route 
+    key ={E_COMMERCE_SIGN_IN_PATH} 
+    path={E_COMMERCE_SIGN_IN_PATH} 
+      component={SignInRoute}
+    />
+     ];
+// const authenticationRoute = [
+//   ProtectRoute( E_COMMERCE_SIGN_IN_PATH , SignInRoute )
+//   ];
+
+ export {authenticationRoute};

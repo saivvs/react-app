@@ -6,7 +6,7 @@ import {observable,action } from 'mobx';
 @observer
 class Projects extends React.Component{
     
-    @observable isLogged;
+    @observable isLogged=false;
     
     @action.bound
     gotoGridScreenIfLoggedIn(){

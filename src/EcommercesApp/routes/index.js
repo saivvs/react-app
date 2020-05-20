@@ -5,13 +5,14 @@ import{
 } from "react-router-dom";
 
 import {ProductsPage} from './ProductsPageRoute/ProductsPageRoute.js';
+import {E_COMMERCE_PRODUCTS_PATH} from '../constants/RouteConstants';
 
 
 const routes = [
     
-    <Route path='/productspage' component={ProductsPage}/>,
+    <Route key={E_COMMERCE_PRODUCTS_PATH} exact path={E_COMMERCE_PRODUCTS_PATH} component={ProductsPage}/>,
     
     ];
     
     
-export  {routes};
+export {routes};

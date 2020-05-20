@@ -1,14 +1,16 @@
 import { observable,action,computed } from 'mobx';
-
+import { observer, inject} from 'mobx-react';
 import CartModel from '../Models/CartModel.js';
-import stores from '../index';
+//import stores from '../index';
+
 
 
 class CartStore {
     @observable cartProductList
     productStore
     
-    constructor(){
+    constructor(props){
+        this.productStore= props
         this.intilise();
     }
     
@@ -42,7 +44,7 @@ class CartStore {
     
     @action.bound
     getProductDetailsById(id){
-        const { productList } = stores.productStore;
+        const { productList } = this.productStore;
          const items =productList.filter((eachproduct)=>eachproduct.id===id);
          return items[0];
     }
@@ -51,7 +53,7 @@ class CartStore {
     get totalCartAmount(){
        let amount=0;
        this.cartProductList.forEach((eachproduct)=>
-       amount+=this.getProductDetailsById((eachproduct.productId)).price);
+       amount+=this.getProductDetailsById(eachproduct.productId).price*(eachproduct.quantity));
        return amount;
     }
     
@@ -62,4 +64,4 @@ class CartStore {
 }
 
 
-export default CartStore;
+export { CartStore };

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {observer} from 'mobx-react';
+import   { FaRupeeSign }  from 'react-icons/fa';
 
 import {SubTotalTag,Amount,SubTotalSubTag} from './styledComponents.js';
 @observer
@@ -13,7 +14,7 @@ class SubTotal extends Component{
                 SubTotal
                 </SubTotalSubTag>
                 <Amount>
-                {totalCartAmount}
+                <FaRupeeSign/> {totalCartAmount}
                 </Amount>
             </SubTotalTag>
             );

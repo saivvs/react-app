@@ -12,7 +12,7 @@ class CartItem extends Component{
     }
     
     render(){
-        const {getProductDetailsById,onRemoveCartItem,cartProductId} = this.props;
+        const {getProductDetailsById,onRemoveCartItem,cartProductId,quantity} = this.props;
         const {image,title,style,price,currencyFormat} = getProductDetailsById(cartProductId);
         return (
             <CartItemTag>
@@ -29,7 +29,7 @@ class CartItem extends Component{
                     {style}
                 </ProductStyle>
                 <ProductQuantity>
-                Quantity:{}
+                Quantity:{quantity}
                 </ProductQuantity>
                 </CartItemSubTag>
                 <ProductPrice>

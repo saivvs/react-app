@@ -54,7 +54,6 @@ class ProductStore {
     onChangeSortBy(userSelection){
         this.sortBy = userSelection;
         this.sortedAndFilterProducts;
-        //console.log('sortBy==',userSelection);
     }
     
     @action.bound
@@ -76,7 +75,8 @@ class ProductStore {
     }
     @computed
     get products(){
-        let sizeList;
+        let sizeList=[];
+        //alert('start');
         if(this.sizeFilter.length===0){
             sizeList = [...this.productList];
         }
@@ -87,7 +87,7 @@ class ProductStore {
         }
         
         if(this.sortBy === 'SELECT'){
-            sizeList
+            sizeList = sizeList;
         }
         else if(this.sortBy === 'ASCENDING'){
              sizeList = this.productList.sort(function(product1,product2) {return product1.price - product2.price});
@@ -95,12 +95,15 @@ class ProductStore {
         else{
             sizeList = this.productList.sort(function(product1,product2) {return product2.price - product1.price});
         }
+        
         return sizeList;
     }
     @computed
     get sortedAndFilterProducts(){
+        //alert('sortedAndFilterProducts');
+        //console.log(this.products,'products');
         return this.products;
     }
 }
 
-export default ProductStore;
+export {ProductStore};

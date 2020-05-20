@@ -45,6 +45,9 @@ class MyApps extends React.Component{
           <li>
           <Link to='/MyApps'>MyApps</Link>
           </li>
+          <li>
+          <Link to='/SigninForm'>SigninForm</Link>
+          </li>
           </ul>
         </nav>
         </div>);

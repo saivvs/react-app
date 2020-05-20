@@ -9,7 +9,7 @@ import   { FiShoppingCart }  from 'react-icons/fi';
 import {CartList} from '../CartList';
 import {CheckOutButton} from '../CheckOutButton';
 import {SubTotal} from '../SubTotal';
-import {ProductCartTag,CartLogo,ProductCartSubTag,InitalCart,Footer,CartListTag} from './styledComponents.js';
+import {ProductCartTag,CartLogo,ProductCartSubTag,InitalCart,Footer,CartListTag,CartHeader,CartCloseButton,CartText,CartItemsCount} from './styledComponents.js';
 
 @inject('cartStore','productStore')
 @observer
@@ -27,23 +27,38 @@ class ProductCart extends Component{
     
     
     render(){
-        const {cartProductList,getProductDetailsById,onRemoveCartItem,totalCartAmount,clearCart} = this.props.cartStore;
+        const {cartProductList,getProductDetailsById,onRemoveCartItem,totalCartAmount,clearCart,noOfProductsInCart} = this.props.cartStore;
         
         return(
             <ProductCartTag>
             <InitalCart>
                 <FiShoppingCart onClick={this.showCart}/>
+                <CartItemsCount>
+                            {noOfProductsInCart}
+                        </CartItemsCount>
             </InitalCart>
             <ProductCartSubTag shouldDisplayCart={this.shouldDisplayCart} >
-                <CartLogo>
-                    <FiShoppingCart onClick={this.hideCart}/>
-                </CartLogo>
+                <CartHeader>
+                    <CartCloseButton onClick={this.hideCart}>
+                        X
+                    </CartCloseButton>
+                    <CartLogo>
+                    <FiShoppingCart />
+                        <CartItemsCount>
+                            {noOfProductsInCart}
+                        </CartItemsCount>
+                        <CartText>
+                        Cart
+                    </CartText>
+                    </CartLogo>
+                    
+                </CartHeader>
                 <CartListTag>
                 <CartList getProductDetailsById={getProductDetailsById} cartProductList={cartProductList} onRemoveCartItem={onRemoveCartItem}/>
                 </CartListTag>
                 <Footer>
                 <SubTotal totalCartAmount={totalCartAmount}/>
-                <CheckOutButton totalCartAmount={totalCartAmount} clearCart={clearCart}/>
+                <CheckOutButton totalCartAmount={totalCartAmount} clearCart={clearCart} cartProductList={cartProductList}/>
                 </Footer>
                 
             </ProductCartSubTag>
