@@ -30,14 +30,20 @@ class SignInRoute extends Component{
     
     
     onChangeUsername=(event)=>{
+        
      this.username = event.target.value; 
+     //alert(this.username)
+     
     }
     
     onChangePassword=(event)=>{
         this.password = event.target.value;
     }
     @action.bound
-    async onClickSignIn(){
+     onClickSignIn(){
+        // alert('route');
+         //alert(this.username);
+         //alert(this.password);
         this.isLoading = true;
         const { userSignIn } = this.props.authStore;
      if(this.username === '' && this.password === ''){
@@ -50,18 +56,20 @@ class SignInRoute extends Component{
          this.errorMessage = 'Please enter username';
      }
      else{
+         //alert('userSignIn');
          this.errorMessage = '';
          userSignIn(
              {
                  username:this.username,
                  password:this.password
              },
-             this.onSignInSuccess,
-             this.onSignInFailure
+             this.onSignInSuccess(),
+             this.onSignInFailure()
              );
      }
     }
     onSignInSuccess= ()=>{
+        //alert('sucess')
         this.gotoProductsPage();
     }
     onSignInFailure = () => {
@@ -72,6 +80,7 @@ class SignInRoute extends Component{
   };
 
     gotoProductsPage=()=>{
+        alert('ready to go');
      this.props.history.push(E_COMMERCE_PRODUCTS_PATH);
     }
 

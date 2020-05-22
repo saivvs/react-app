@@ -13,7 +13,7 @@ describe("SignInForm", () => {
 
     const usernameField = getByPlaceholderText("Username");
 
-    expect(usernameField.value).toBe(userName);
+    expect(usernameField.defaultValue).toBe(userName);
   });
   
   it('should render typed password', () =>{
@@ -21,8 +21,8 @@ describe("SignInForm", () => {
       const { getByPlaceholderText } = render(
           <SignInForm password={password} onChangePassword={() => {}}/>
           );
-          const passwordField = getByPlaceholderText('Password');
-          expect (passwordField.value).toBe(password);
+          const passwordField = getByPlaceholderText("Password");
+          expect (passwordField.defaultValue).toBe(password);
   });
   
   it('should render error message', () =>{

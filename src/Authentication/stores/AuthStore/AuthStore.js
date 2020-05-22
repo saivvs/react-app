@@ -40,16 +40,17 @@ class AuthStore{
     
     @action.bound
     userSignIn(request, onSuccess, onFailure){
+        alert('store');
         //console.log('authstore');
      const signInPromise = this.authAPIService.signinAPI();  
      return bindPromiseWithOnSuccess(signInPromise)
      .to(this.setGetUserSignInAPIStatus,response=>{
          this.setUserSignInAPIResponse(response);
-         onSuccess();
+         //onSuccess();
      })
      .catch(error=>{
          this.setGetUserSignInAPIError(error);
-         onFailure();
+         //onFailure();
          
      });
     }

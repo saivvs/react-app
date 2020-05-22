@@ -156,8 +156,8 @@ function Home(){
   return(
     <Redirect
         to={{
-            //pathname:E_COMMERCE_SIGN_IN_PATH,
-            pathname:ADVANCED_CONCEPTS_PRACTICE_PATH,
+            pathname:E_COMMERCE_SIGN_IN_PATH,
+            //pathname:ADVANCED_CONCEPTS_PRACTICE_PATH,
             }}
             />
     );

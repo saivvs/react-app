@@ -3,13 +3,13 @@ import {observer} from 'mobx-react';
 import CookieConsent, { Cookie } from "react-cookie-consent";
 import {AiOutlineLoading3Quarters} from 'react-icons/ai';
 import {SignInPage,SignInBox,UserNameTag,PasswordTag,SignInButton,ErrorMessageTag} from './styledComponents.js';
-
+import {InputElement} from '../../../common/components/InputElement';
 @observer
 class SignInForm extends Component{
-    userNameRef = React.createRef();
+   // userNameRef = React.createRef();
     componentDidMount(){
-        console.log('componentDidMount');
-        this.userNameRef.current.focus();
+        //console.log('componentDidMount');
+        //this.userNameRef.current.focus();
         //document.getElementById('userName').focus();
     }
     render(){
@@ -26,10 +26,8 @@ class SignInForm extends Component{
             <SignInPage>
                 <SignInBox>
                     Sign In
-                    <UserNameTag placeholder="Username" onChange={onChangeUsername} value={userName} ref={this.userNameRef}>
-                    </UserNameTag>
-                    <PasswordTag placeholder='Password' onChange={onChangePassword} value={password} >
-                    </PasswordTag>
+                    <InputElement placeholder="Username" onChangeHandler={onChangeUsername}  defaultValue={userName} type='text'/>
+                    <InputElement placeholder="Password" onChangeHandler={onChangePassword}  defaultValue={password} type='password'/>
                     <SignInButton data-testid='sign-in-button' onClick={onClickSignIn}>
                         {isLoading?<AiOutlineLoading3Quarters className='fa-spin' />:'Sign In'}
                     </SignInButton>

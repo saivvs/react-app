@@ -6,7 +6,7 @@ import {inject} from 'mobx-react';
 
 
 import LoadingWrapperWithFailure from '../../../components/common/LoadingWrapperWithFailure';
-
+import {PaginationButton} from '../../../common/components/PaginationButton';
 import {ProductsPageTag,SignOutButton,ProductsPageSubTag,HeaderAndProductListTag,SignOutButtonAndCartTag} from './styledComponents.js';
 import {SizeFilter} from '../SizeFilter';
 import {Header} from '../Header';
@@ -42,7 +42,7 @@ class ProductsPage extends Component{
             <ProductsList productList={sortedAndFilterProducts} onClickAddToCart={onClickAddToCart}/>
             </HeaderAndProductListTag>
             </ProductsPageSubTag>
-            
+            <PaginationButton currentPage={1} totalPage={10}/>
             </ProductsPageTag>
             
             );
