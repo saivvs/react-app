@@ -4,19 +4,19 @@ import { apiMethods } from '../../constants/APIConstants';
 
 import endpoints from '../endpoints';
 class AuthAPI {
-    
+
     api
-    
+
     constructor(){
         this.api = create ({
-            baseURL : 'https://5ea1a14db9f5ca00166c1f27.mockapi.io/api/'
+            baseURL : 'https://eb1e66624b73.ngr0.i0/api/essential_kit_management/'
         });
     }
-    
+
     signinAPI(){
         const signinPromise = networkCallWithApisauce(
             this.api,
-            endpoints.signIn,
+            'user/V1',
             {},
             apiMethods.get
             );

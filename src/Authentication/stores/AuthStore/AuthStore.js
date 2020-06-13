@@ -28,20 +28,20 @@ class AuthStore{
     
     @action.bound
     setGetUserSignInAPIError(error){
-        //console.log(error,'error')
+        
         this.getUserSignInAPIError = error;
     }
     
     @action.bound
     setGetUserSignInAPIStatus(apiStatus){
-        //console.log(apiStatus)
+        
            this.getUserSignInAPIStatus = apiStatus;
     }
     
     @action.bound
     userSignIn(request, onSuccess, onFailure){
-        alert('store');
-        //console.log('authstore');
+        
+        
      const signInPromise = this.authAPIService.signinAPI();  
      return bindPromiseWithOnSuccess(signInPromise)
      .to(this.setGetUserSignInAPIStatus,response=>{

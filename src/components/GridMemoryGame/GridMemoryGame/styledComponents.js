@@ -6,4 +6,3 @@ const GridMemoryGameTag = styled.div`${tw`flex flex-col items-center h-screen ju
 
 export default  GridMemoryGameTag;
 
-//,backgroundColor:props.selectedTheme.backgroundColor

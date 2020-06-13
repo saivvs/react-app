@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import {observer} from 'mobx-react';
-
-import {inject} from 'mobx-react';
+import {observer,inject} from 'mobx-react';
+import {observable} from 'mobx';
 
 
 
@@ -16,16 +15,13 @@ import {ProductCart} from '../ProductCart';
 @inject('productStore','cartStore')
 @observer
 class ProductsPage extends Component{
-    
     doNetworkCalls=()=>{
         this.getProductStore().getProductList();   
     }
     renderProductList=observer(()=>{
         
-        const {sortedAndFilterProducts,onSelectSize,onChangeSortBy,totalNoOfProductsDispalyed,sizeFilter}=this.props.productStore;
-        //console.log(sortedAndFilterProducts,'productspage component');
+        const {sortedAndFilterProducts,onSelectSize,onChangeSortBy,totalNoOfProductsDispalyed,sizeFilter,setOffSetValue,currentPage,totalPages}=this.props.productStore;
         const {onClickAddToCart} = this.props.cartStore;
-        //return(null)
         return(
             
             <ProductsPageTag>
@@ -33,7 +29,7 @@ class ProductsPage extends Component{
             <SignOutButton onClick={this.onClickSignOut}>
                 Sign Out
             </SignOutButton>
-            <ProductCart  />
+            <ProductCart />
             </SignOutButtonAndCartTag>
             <ProductsPageSubTag>
             <SizeFilter  onSelectSize={onSelectSize} sizeFilter={sizeFilter}/>
@@ -42,7 +38,7 @@ class ProductsPage extends Component{
             <ProductsList productList={sortedAndFilterProducts} onClickAddToCart={onClickAddToCart}/>
             </HeaderAndProductListTag>
             </ProductsPageSubTag>
-            <PaginationButton currentPage={1} totalPage={10}/>
+            <PaginationButton currentPage={currentPage} totalPages={totalPages} handleIncrementButton={setOffSetValue} handleDecerementButton={setOffSetValue}/>
             </ProductsPageTag>
             
             );

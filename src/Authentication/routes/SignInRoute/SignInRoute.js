@@ -14,10 +14,10 @@ class SignInRoute extends Component{
         @observable errorMessage
         @observable token
         @observable isLoading
-    
+
      constructor(props){
          super(props);
-         this.intilise();   
+         this.intilise();
      }
      @action.bound
      intilise(){
@@ -27,23 +27,17 @@ class SignInRoute extends Component{
             this.token = '';
             this.isLoading = false;
         }
-    
-    
+
+
     onChangeUsername=(event)=>{
-        
-     this.username = event.target.value; 
-     //alert(this.username)
-     
+     this.username = event.target.value;
     }
-    
+
     onChangePassword=(event)=>{
         this.password = event.target.value;
     }
     @action.bound
      onClickSignIn(){
-        // alert('route');
-         //alert(this.username);
-         //alert(this.password);
         this.isLoading = true;
         const { userSignIn } = this.props.authStore;
      if(this.username === '' && this.password === ''){
@@ -56,7 +50,6 @@ class SignInRoute extends Component{
          this.errorMessage = 'Please enter username';
      }
      else{
-         //alert('userSignIn');
          this.errorMessage = '';
          userSignIn(
              {
@@ -69,7 +62,6 @@ class SignInRoute extends Component{
      }
     }
     onSignInSuccess= ()=>{
-        //alert('sucess')
         this.gotoProductsPage();
     }
     onSignInFailure = () => {
@@ -80,16 +72,16 @@ class SignInRoute extends Component{
   };
 
     gotoProductsPage=()=>{
-        alert('ready to go');
      this.props.history.push(E_COMMERCE_PRODUCTS_PATH);
     }
 
     render(){
+       
         return(
-            <SignInForm 
-                onChangeUsername={this.onChangeUsername} 
+            <SignInForm
+                onChangeUsername={this.onChangeUsername}
                 onChangePassword={this.onChangePassword}
-                onClickSignIn={this.onClickSignIn}
+                handleSignInButtonClick={this.onClickSignIn}
                 errorMessage = {this.errorMessage}
                 userName={this.userName}
                 password={this.password}

@@ -9,7 +9,7 @@ export const ProtectedRoute = (
     props
     )=>{
         const {componentPath,renderComponent} = props;
-        //console.log(renderComponent,'sgddyufc');
+        
         const isLoggedIn = Boolean(getAccessToken());
         return isLoggedIn?(
             <Route path={componentPath} component={renderComponent}/>
@@ -17,4 +17,4 @@ export const ProtectedRoute = (
                 <Redirect to={{pathname:"/Sign-In-Page"}}/>);
     };
     
-// export {ProtectedRoute};
+export {ProtectedRoute};

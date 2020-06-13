@@ -3,6 +3,7 @@ import { API_INTIAL,API_FETCHING,API_SUCCESS,API_FAILED } from '@ib/api-constant
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 import ProductModel from '../Models/ProductModel.js';
+const limit = 3;
 class ProductStore {
     
     @observable productList
@@ -10,6 +11,10 @@ class ProductStore {
     @observable getProductAPIError
     @observable sizeFilter
     @observable sortBy
+    @observable currentPage
+    @observable totalPages
+    @observable limit
+    @observable offset
     productAPISerivice
     
     
@@ -24,12 +29,15 @@ class ProductStore {
         this.getProductListAPIStatus = API_INTIAL;
         this.getProductAPIError = null;
         this.sizeFilter = [];
+        this.currentPage = 1;
+        this.offset = 0;
+        this.totalPages = 0;
         this.sortBy = 'SELECT';
     }
     
     @action.bound
     getProductList(){
-        const ProductPromise = this.productAPISerivice.getProductsAPI();
+        const ProductPromise = this.productAPISerivice.getProductsAPI(limit,this.offset);
         return bindPromiseWithOnSuccess(ProductPromise)
         .to(this.setGetProductListAPIStatus,this.setProductListAPIResponse)
         .catch(this.setGetProductListAPIError);
@@ -37,7 +45,9 @@ class ProductStore {
     
     @action.bound
     setProductListAPIResponse(productsData){
-        this.productList = (productsData.filter((eachproduct)=>new ProductModel(eachproduct)));
+        const {products,total} = productsData;
+        this.productList = (products.filter((eachproduct)=>new ProductModel(eachproduct)));
+        this.totalPages = Math.round(total/limit);
     }
     
     @action.bound
@@ -100,9 +110,26 @@ class ProductStore {
     }
     @computed
     get sortedAndFilterProducts(){
-        //alert('sortedAndFilterProducts');
-        //console.log(this.products,'products');
         return this.products;
+    }
+    
+    @action.bound
+    setOffSetValue(event){
+        const userClick = event.target.value;
+        if(this.currentPage>0 && this.currentPage <= this.totalPages){
+         switch(userClick){
+            case'decerement':{
+                this.currentPage--;
+                this.offset = this.offset-limit;
+                this.getProductList(limit,this.offset);
+            }
+            case 'increment':{
+                this.currentPage++;
+                this.offset = this.offset+limit;
+                this.getProductList(limit,this.offset);
+            }
+        }   
+        }
     }
 }
 
